@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Quellman — Director + DP</title>
+<meta name="description" content="Jordan Quellman — Director and Director of Photography. Narrative, Documentary, Commercial, Music Video. Filming across the globe.">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── HOME-SPECIFIC STYLES ─────────────────────────────── */
+
+/* Opening curtain */
+.curtain {
+  position:fixed; inset:0; background:var(--kansas-black);
+  z-index:9900; pointer-events:none;
+  animation:curtainOpen 2.4s cubic-bezier(0.76,0,0.24,1) 0.4s forwards;
+}
+@keyframes curtainOpen { 0%{opacity:1} 100%{opacity:0} }
+
+/* Hero */
+.hero {
+  height:100vh; position:relative;
+  display:flex; flex-direction:column;
+  justify-content:flex-end;
+  padding:0 72px clamp(72px,10vw,120px);
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 100% 70% at 80% 20%, rgba(120,64,176,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 70% at 10% 80%, rgba(26,140,60,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(204,26,26,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 55% at 75% 70%, rgba(232,192,32,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 25% 30%, rgba(74,156,200,0.10) 0%, transparent 50%),
+    linear-gradient(175deg, #1c1008 0%, #100c08 45%, #080603 100%);
+  animation:bgBreath 18s ease-in-out infinite alternate;
+}
+@keyframes bgBreath {
+  0%{filter:brightness(1) saturate(1)} 50%{filter:brightness(1.12) saturate(1.25)} 100%{filter:brightness(0.94) saturate(0.95)}
+}
+.neb {
+  position:absolute; border-radius:50%;
+  filter:blur(90px); pointer-events:none; mix-blend-mode:screen;
+}
+.neb-ruby    { width:50vw;height:50vw;bottom:-10%;left:-5%;    background:radial-gradient(ellipse at center,rgba(204,26,26,0.20) 0%,transparent 70%);  animation:nebDrift 22s ease-in-out infinite alternate; }
+.neb-emerald { width:45vw;height:45vw;top:-10%;right:-5%;     background:radial-gradient(ellipse at center,rgba(26,140,60,0.20) 0%,transparent 70%);   animation:nebDrift 28s ease-in-out infinite alternate-reverse; }
+.neb-violet  { width:40vw;height:40vw;top:20%;left:15%;       background:radial-gradient(ellipse at center,rgba(120,64,176,0.16) 0%,transparent 70%);  animation:nebDrift 32s ease-in-out infinite alternate; }
+.neb-yellow  { width:35vw;height:35vw;bottom:10%;right:15%;   background:radial-gradient(ellipse at center,rgba(232,192,32,0.14) 0%,transparent 70%);  animation:nebDrift 25s ease-in-out infinite alternate-reverse; }
+.neb-sky     { width:30vw;height:30vw;top:40%;right:5%;       background:radial-gradient(ellipse at center,rgba(74,156,200,0.12) 0%,transparent 70%);  animation:nebDrift 20s ease-in-out infinite alternate; }
+@keyframes nebDrift { 0%{transform:scale(1) translate(0,0)} 100%{transform:scale(1.18) translate(4%,-5%)} }
+.hero-light {
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 65% -15%, rgba(232,192,32,0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 40% at 95% 30%, rgba(204,26,26,0.08) 0%, transparent 50%);
+  mix-blend-mode:screen;
+  animation:lightWaver 15s ease-in-out infinite alternate;
+}
+@keyframes lightWaver { 0%{opacity:.7;transform:scale(1)} 100%{opacity:1;transform:scale(1.04) translateY(-1%)} }
+.hero-scan {
+  position:absolute; inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 3px);
+  pointer-events:none; z-index:1;
+}
+.hero-road {
+  position:absolute; left:72px; top:15%; bottom:clamp(72px,10vw,120px);
+  width:2px; z-index:3;
+  background:linear-gradient(to bottom, transparent, rgba(232,192,32,0.10) 10%, rgba(232,192,32,0.30) 35%, rgba(204,26,26,0.25) 65%, rgba(26,140,60,0.20) 85%, transparent);
+}
+.hero-road::after {
+  content:''; position:absolute; top:-30%; left:0; width:100%; height:30%;
+  background:linear-gradient(to bottom, transparent, var(--yellow), transparent);
+  opacity:.8; animation:roadGlow 4.5s ease-in-out infinite;
+}
+@keyframes roadGlow { 0%{top:-30%;opacity:0} 15%{opacity:.8} 85%{opacity:.6} 100%{top:130%;opacity:0} }
+
+.hero-content { position:relative; z-index:4; padding-left:30px; }
+.hero-eyebrow {
+  font-weight:100; font-size:0.52rem; letter-spacing:0.6em; text-transform:uppercase;
+  color:var(--yellow-d); margin-bottom:20px;
+  display:flex; align-items:center; gap:18px;
+  opacity:0; animation:riseIn 1.2s ease .9s forwards;
+}
+.hero-eyebrow::before { content:''; width:36px; height:1px; background:linear-gradient(to right,var(--ruby),var(--yellow)); flex-shrink:0; }
+.hero-title {
+  font-weight:700; font-size:clamp(4.5rem,13vw,13rem);
+  line-height:.82; letter-spacing:-0.01em; text-transform:uppercase;
+  opacity:0; animation:riseIn 1.5s ease 1.1s forwards;
+}
+.ht-1 { display:block; color:var(--ivory); text-shadow:0 0 80px rgba(232,192,32,0.15),0 2px 0 rgba(0,0,0,0.6); }
+.ht-2 {
+  display:block;
+  background:linear-gradient(105deg, var(--ruby) 0%, var(--poppy) 20%, var(--yellow) 45%, var(--emerald-l) 72%, var(--sky) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; background-size:200% 100%;
+  animation:ozShimmer 10s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 25px rgba(232,192,32,0.25));
+}
+@keyframes ozShimmer { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+.ht-3 { display:block; font-weight:100; font-size:.42em; letter-spacing:0.25em; color:transparent; -webkit-text-stroke:1px rgba(232,192,32,0.18); }
+
+.hero-foot {
+  display:flex; justify-content:space-between; align-items:flex-end; margin-top:40px;
+  opacity:0; animation:riseIn 1.1s ease 1.6s forwards;
+}
+.hero-tagline { font-family:'Cormorant Garant',serif; font-style:italic; font-size:1rem; color:var(--kansas-straw); line-height:2; letter-spacing:.04em; }
+.hero-swatches { display:flex; flex-direction:column; align-items:flex-end; gap:7px; }
+.swatch { display:flex; align-items:center; gap:10px; font-weight:100; font-size:.42rem; letter-spacing:.3em; text-transform:uppercase; }
+.swatch-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.sw-ruby    .swatch-dot { background:var(--ruby);     box-shadow:0 0 8px var(--ruby); }     .sw-ruby    { color:rgba(204,26,26,0.55); }
+.sw-emerald .swatch-dot { background:var(--emerald-l);box-shadow:0 0 8px var(--emerald); }  .sw-emerald { color:rgba(40,184,80,0.55); }
+.sw-yellow  .swatch-dot { background:var(--yellow);   box-shadow:0 0 8px var(--yellow); }   .sw-yellow  { color:rgba(196,158,16,0.55); }
+.sw-sky     .swatch-dot { background:var(--sky);      box-shadow:0 0 8px var(--sky); }      .sw-sky     { color:rgba(74,156,200,0.55); }
+.sw-violet  .swatch-dot { background:var(--violet-l); box-shadow:0 0 8px var(--violet); }   .sw-violet  { color:rgba(156,92,216,0.55); }
+
+.hero-scroll {
+  position:absolute; right:72px; bottom:clamp(72px,10vw,120px);
+  z-index:4; display:flex; flex-direction:column; align-items:center; gap:10px;
+  opacity:0; animation:fadeIn 1.5s ease 2.2s forwards;
+}
+.sc-track { width:1px; height:72px; background:rgba(232,192,32,0.1); position:relative; overflow:hidden; }
+.sc-fill { position:absolute; top:-100%; left:0; width:100%; height:100%; background:linear-gradient(to bottom,transparent,var(--yellow),var(--ruby),transparent); animation:fall 2.5s ease-in-out infinite; }
+@keyframes fall { 0%{top:-100%} 100%{top:200%} }
+.sc-txt { font-weight:100; font-size:.38rem; letter-spacing:.4em; color:rgba(232,192,32,0.35); text-transform:uppercase; writing-mode:vertical-rl; }
+
+@keyframes riseIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+
+/* Reel section */
+.reel-section { background:var(--kansas-dark); padding:clamp(80px,12vw,160px) 72px; }
+.reel-wrap { position:relative; }
+.sprocket { position:absolute; top:0; bottom:0; background:rgba(8,6,3,0.9); display:flex; flex-direction:column; gap:8px; padding:10px 7px; }
+.sp-l{left:0} .sp-r{right:0}
+.sprocket-h { width:13px; height:9px; border-radius:2px; border:1px solid rgba(232,192,32,0.22); background:rgba(232,192,32,0.03); }
+.reel-body {
+  margin:0 30px; aspect-ratio:21/9; position:relative;
+  overflow:hidden; cursor:pointer; background:var(--kansas-mid);
+}
+.reel-body::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 65% 65% at 60% 30%,rgba(120,64,176,0.20) 0%,transparent 60%), radial-gradient(ellipse 50% 60% at 15% 75%,rgba(26,140,60,0.18) 0%,transparent 55%), radial-gradient(ellipse 40% 40% at 80% 70%,rgba(232,192,32,0.12) 0%,transparent 50%);
+  z-index:1;
+}
+.reel-body::after {
+  content:''; position:absolute; inset:0;
+  border:1px solid transparent;
+  background:linear-gradient(var(--kansas-mid),var(--kansas-mid)) padding-box, linear-gradient(135deg,var(--ruby),var(--yellow),var(--emerald-l),var(--sky),var(--violet)) border-box;
+  opacity:.45; z-index:2; pointer-events:none;
+}
+.reel-inner { position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; transition:transform .6s cubic-bezier(.25,.46,.45,.94); }
+.reel-body:hover .reel-inner { transform:scale(1.03); }
+.fc { position:absolute; width:22px; height:22px; z-index:5; }
+.fc::before,.fc::after { content:''; position:absolute; }
+.fc::before { width:100%; height:1px; top:0; left:0; }
+.fc::after  { width:1px; height:100%; top:0; left:0; }
+.fc.tl{top:14px;left:14px}   .fc.tl::before,.fc.tl::after{background:var(--yellow)}
+.fc.tr{top:14px;right:14px}  .fc.tr::before{background:var(--ruby);left:auto;right:0} .fc.tr::after{background:var(--ruby);left:auto;right:0}
+.fc.bl{bottom:14px;left:14px}.fc.bl::before{background:var(--emerald-l);top:auto;bottom:0}
+.fc.br{bottom:14px;right:14px}.fc.br::before{background:var(--sky);top:auto;bottom:0;left:auto;right:0} .fc.br::after{background:var(--sky);left:auto;right:0}
+.play-ring { width:96px;height:96px;border-radius:50%; border:1px solid rgba(232,192,32,0.3); display:flex;align-items:center;justify-content:center; position:relative;transition:all .5s ease; }
+.play-ring::before { content:'';position:absolute;inset:-4px;border-radius:50%; background:conic-gradient(from 0deg,var(--ruby),var(--yellow),var(--emerald-l),var(--sky),var(--violet),var(--ruby)); opacity:0;transition:opacity .5s; mask:radial-gradient(farthest-side,transparent calc(100% - 1.5px),#000 calc(100% - 1.5px)); -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 1.5px),#000 calc(100% - 1.5px)); }
+.reel-body:hover .play-ring{border-color:rgba(232,192,32,.7);transform:scale(1.08)}
+.reel-body:hover .play-ring::before{opacity:1}
+.play-tri { width:0;height:0;border-top:13px solid transparent;border-bottom:13px solid transparent;border-left:22px solid var(--yellow);margin-left:5px;filter:drop-shadow(0 0 8px rgba(232,192,32,.6));transition:border-left-color .3s; }
+.reel-body:hover .play-tri{border-left-color:var(--ivory)}
+.reel-lbl { font-weight:100;font-size:.42rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(196,158,16,.5); }
+
+/* Work list */
+.work-section { background:var(--kansas-black); padding:clamp(80px,12vw,160px) 72px; }
+.cat-list{list-style:none}
+.cat-item { display:flex;align-items:center;padding:22px 0;border-bottom:1px solid rgba(232,192,32,0.07); text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:padding-left .5s cubic-bezier(.25,.46,.45,.94); }
+.cat-item::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .5s}
+.cat-item[data-oz="ruby"]::before    { background:linear-gradient(90deg,rgba(204,26,26,.07) 0%,transparent 65%); }
+.cat-item[data-oz="yellow"]::before  { background:linear-gradient(90deg,rgba(232,192,32,.07) 0%,transparent 65%); }
+.cat-item[data-oz="emerald"]::before { background:linear-gradient(90deg,rgba(26,140,60,.07) 0%,transparent 65%); }
+.cat-item[data-oz="sky"]::before     { background:linear-gradient(90deg,rgba(74,156,200,.07) 0%,transparent 65%); }
+.cat-item[data-oz="violet"]::before  { background:linear-gradient(90deg,rgba(120,64,176,.07) 0%,transparent 65%); }
+.cat-item:hover::before{opacity:1} .cat-item:hover{padding-left:20px}
+.cat-num { font-weight:100;font-size:.44rem;letter-spacing:.2em;width:50px;flex-shrink:0;opacity:.45; }
+.cat-item[data-oz="ruby"]    .cat-num{color:var(--ruby)}
+.cat-item[data-oz="yellow"]  .cat-num{color:var(--yellow-d)}
+.cat-item[data-oz="emerald"] .cat-num{color:var(--emerald)}
+.cat-item[data-oz="sky"]     .cat-num{color:var(--sky-d)}
+.cat-item[data-oz="violet"]  .cat-num{color:var(--violet-d)}
+.cat-name { font-weight:700;text-transform:uppercase;font-size:clamp(1.5rem,3vw,2.8rem);color:var(--parchment);flex:1;line-height:1;letter-spacing:-.01em;transition:color .4s; }
+.cat-item[data-oz="ruby"]:hover    .cat-name{color:var(--ruby)}
+.cat-item[data-oz="yellow"]:hover  .cat-name{color:var(--yellow)}
+.cat-item[data-oz="emerald"]:hover .cat-name{color:var(--emerald-l)}
+.cat-item[data-oz="sky"]:hover     .cat-name{color:var(--sky-l)}
+.cat-item[data-oz="violet"]:hover  .cat-name{color:var(--violet-l)}
+.cat-aside{display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-right:20px}
+.cat-count{font-weight:100;font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;color:var(--shadow)}
+.cat-tag{font-family:'Cormorant Garant',serif;font-style:italic;font-size:.72rem;color:var(--kansas-ochre);opacity:0;transition:opacity .4s}
+.cat-item:hover .cat-tag{opacity:1}
+.cat-arr{font-size:1.1rem;transition:transform .5s,color .4s;color:var(--shadow)}
+.cat-item[data-oz="ruby"]:hover    .cat-arr{color:var(--ruby);transform:translateX(10px)}
+.cat-item[data-oz="yellow"]:hover  .cat-arr{color:var(--yellow);transform:translateX(10px)}
+.cat-item[data-oz="emerald"]:hover .cat-arr{color:var(--emerald-l);transform:translateX(10px)}
+.cat-item[data-oz="sky"]:hover     .cat-arr{color:var(--sky);transform:translateX(10px)}
+.cat-item[data-oz="violet"]:hover  .cat-arr{color:var(--violet-l);transform:translateX(10px)}
+
+/* About strip */
+.about-strip { display:grid;grid-template-columns:1fr 1fr;overflow:hidden; }
+.about-art {
+  position:relative;overflow:hidden;
+  background: radial-gradient(ellipse 70% 70% at 30% 50%,rgba(204,26,26,.22) 0%,transparent 55%), radial-gradient(ellipse 55% 55% at 75% 25%,rgba(232,192,32,.16) 0%,transparent 55%), radial-gradient(ellipse 50% 60% at 50% 80%,rgba(120,64,176,.16) 0%,transparent 55%), linear-gradient(160deg,#201006 0%,#120a04 50%,#080402 100%);
+  min-height:clamp(380px,50vw,640px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(40px,6vw,80px);
+}
+.about-art::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px);pointer-events:none}
+.about-art::after{content:'';position:absolute;inset:18px;border:1px solid rgba(232,192,32,.07);pointer-events:none}
+.a-orn{display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative;z-index:1}
+.a-orn-line{width:22px;height:1px;background:var(--ruby)}
+.a-orn-txt{font-weight:100;font-size:.4rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(204,26,26,.5)}
+.a-qmark{font-weight:700;font-size:7rem;line-height:.5;color:rgba(204,26,26,.10);margin-bottom:14px;position:relative;z-index:1}
+.a-quote{font-family:'Cormorant Garant',serif;font-style:italic;font-weight:300;font-size:clamp(1.4rem,2.8vw,2.4rem);color:var(--cream);line-height:1.45;position:relative;z-index:1}
+.a-quote em{font-style:normal;background:linear-gradient(90deg,var(--ruby),var(--poppy),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.a-attr{margin-top:22px;position:relative;z-index:1;font-weight:100;font-size:.42rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(232,192,32,.45)}
+.about-text {
+  background:var(--kansas-dark);border-left:1px solid rgba(232,192,32,.08);
+  padding:clamp(40px,6vw,80px);display:flex;flex-direction:column;justify-content:center;
+}
+.at-lbl{font-weight:400;font-size:.44rem;letter-spacing:.38em;text-transform:uppercase;color:var(--yellow-d);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.at-lbl::before{content:'';width:22px;height:1px;background:var(--yellow)}
+.at-bio{font-family:'Cormorant Garant',serif;font-style:italic;font-size:.92rem;line-height:2;color:var(--kansas-straw);margin-bottom:32px}
+.at-rule{height:2px;margin-bottom:32px;opacity:.45;background:linear-gradient(90deg,var(--ruby) 0%,var(--yellow) 25%,var(--emerald-l) 50%,var(--sky) 75%,var(--violet) 100%)}
+.at-credits{display:flex;flex-direction:column;gap:10px}
+.at-c{font-weight:100;font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;line-height:1.7}
+.at-ruby{color:rgba(204,26,26,.6)} .at-yellow{color:rgba(196,158,16,.6)} .at-green{color:rgba(26,140,60,.6)} .at-sky{color:rgba(74,156,200,.6)}
+
+/* Contact CTA */
+.contact-cta { background:var(--kansas-black);position:relative;overflow:hidden;text-align:center;padding:clamp(100px,14vw,180px) 72px; }
+.contact-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% -10%,rgba(232,192,32,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 15% 60%,rgba(26,140,60,.09) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 85% 60%,rgba(204,26,26,.09) 0%,transparent 55%);pointer-events:none}
+.c-gems{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:36px;position:relative;z-index:1}
+.c-gem{width:8px;height:8px;transform:rotate(45deg);box-shadow:0 0 10px currentColor}
+.cg-r{background:var(--ruby);color:var(--ruby)} .cg-y{background:var(--yellow);color:var(--yellow)} .cg-g{background:var(--emerald-l);color:var(--emerald-l)} .cg-b{background:var(--sky);color:var(--sky)} .cg-v{background:var(--violet-l);color:var(--violet-l)}
+.c-gem-line{flex:1;max-width:48px;height:1px}
+.cgl-l{background:linear-gradient(to right,transparent,var(--yellow))} .cgl-r{background:linear-gradient(to left,transparent,var(--emerald))}
+.c-sup-txt{font-weight:100;font-size:.48rem;letter-spacing:.55em;text-transform:uppercase;color:var(--yellow-d)}
+.c-title{font-weight:700;text-transform:uppercase;font-size:clamp(3rem,10vw,10rem);line-height:.84;letter-spacing:-.01em;margin-bottom:64px;position:relative;z-index:1}
+.ct1{display:block;color:var(--parchment)}
+.ct2{display:block;font-family:'Cormorant Garant',serif;font-style:italic;font-weight:300;text-transform:none;font-size:.85em;letter-spacing:.01em;background:linear-gradient(105deg,var(--ruby) 0%,var(--poppy) 20%,var(--yellow) 45%,var(--emerald-l) 70%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 100%;animation:ozShimmer 6s ease-in-out infinite alternate;filter:drop-shadow(0 0 28px rgba(232,192,32,.22))}
+.ct3{display:block;font-weight:100;font-size:.4em;letter-spacing:.3em;color:transparent;-webkit-text-stroke:1px rgba(74,156,200,.25)}
+.c-actions{display:flex;align-items:center;justify-content:center;gap:28px;position:relative;z-index:1}
+.c-btn{font-weight:600;font-size:.52rem;letter-spacing:.4em;text-transform:uppercase;padding:14px 42px;text-decoration:none;position:relative;overflow:hidden;transition:color .5s}
+.c-btn::before{content:'';position:absolute;inset:0;transform:translateX(-105%);transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.c-btn-primary{color:var(--kansas-black)}
+.c-btn-primary::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--ruby),var(--poppy),var(--yellow))}
+.c-btn-primary::before{background:linear-gradient(90deg,var(--yellow),var(--emerald-l));z-index:0}
+.c-btn-primary:hover::before{transform:translateX(0)}
+.c-btn-primary span{position:relative;z-index:1}
+.c-btn-ghost{color:var(--kansas-straw);border:1px solid rgba(26,140,60,.35)}
+.c-btn-ghost::before{background:rgba(26,140,60,.08)}
+.c-btn-ghost:hover{color:var(--emerald-l);border-color:rgba(26,140,60,.7)}
+.c-btn-ghost:hover::before{transform:translateX(0)}
+.c-btn-ghost span{position:relative;z-index:1}
+.c-sep{width:1px;height:24px;background:rgba(232,192,32,.12)}
+
+@media(max-width:900px){
+  .hero{padding:0 28px clamp(72px,10vw,120px)} .hero-road{left:28px} .hero-scroll{right:28px}
+  .reel-section,.work-section{padding-left:28px;padding-right:28px}
+  .about-strip{grid-template-columns:1fr} .contact-cta{padding-left:28px;padding-right:28px}
+  .sprocket{display:none} .reel-body{margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="curtain"></div>
+<canvas id="grain"></canvas>
+<div class="lb-t"></div><div class="lb-b"></div>
+<div class="vignette"></div><div class="halation"></div>
+
+<div class="hud-l">
+  <div class="hud-tc">TC <span id="tc">00:00:00:00</span></div>
+  <div class="hud-sc" id="sc">SC. I — INT. PORTFOLIO</div>
+</div>
+<div class="hud-r">
+  <div id="fn">FRAME 000000</div>
+  <div style="margin-top:4px;color:rgba(26,140,60,0.4)">TECHNICOLOR · OZ</div>
+</div>
+
+<div class="c-dot" id="cd"></div>
+<div class="c-ring" id="cr"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jordan Quellman</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="films.html">Films</a></li>
+    <li><a href="documentary.html">Docs</a></li>
+    <li><a href="commercial.html">Commercial</a></li>
+    <li><a href="photography.html">Photos</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="neb neb-ruby"></div><div class="neb neb-emerald"></div>
+  <div class="neb neb-violet"></div><div class="neb neb-yellow"></div><div class="neb neb-sky"></div>
+  <div class="hero-light"></div>
+  <div class="hero-scan"></div>
+  <canvas id="dust"></canvas>
+  <div class="hero-road"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Director &amp; Director of Photography</p>
+    <h1 class="hero-title">
+      <span class="ht-1">Jordan</span>
+      <span class="ht-2">Quellman</span>
+      <span class="ht-3">Flionlion · Cinema</span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-tagline">Be kind. Use less.<br>Filming across the globe.</p>
+      <div class="hero-swatches">
+        <div class="swatch sw-ruby">   <div class="swatch-dot"></div>Narrative</div>
+        <div class="swatch sw-emerald"><div class="swatch-dot"></div>Documentary</div>
+        <div class="swatch sw-yellow"> <div class="swatch-dot"></div>Commercial</div>
+        <div class="swatch sw-sky">    <div class="swatch-dot"></div>Editorial</div>
+        <div class="swatch sw-violet"> <div class="swatch-dot"></div>Branded</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="sc-track"><div class="sc-fill"></div></div>
+    <span class="sc-txt">Scroll</span>
+  </div>
+</div>
+
+<div class="rainbow-bar"></div>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span class="mq-item">Nike <span>✦</span></span><span class="mq-item">Calvin Klein <span>✦</span></span><span class="mq-item">IKEA <span>✦</span></span><span class="mq-item">Rolling Stone <span>✦</span></span><span class="mq-item">Verizon <span>✦</span></span><span class="mq-item">Travis Scott <span>✦</span></span><span class="mq-item">James Blake <span>✦</span></span><span class="mq-item">Dua Lipa <span>✦</span></span><span class="mq-item">Billie Eilish <span>✦</span></span><span class="mq-item">Serena Williams <span>✦</span></span><span class="mq-item">Neymar Jr <span>✦</span></span><span class="mq-item">Tyga <span>✦</span></span><span class="mq-item">Nike <span>✦</span></span><span class="mq-item">Calvin Klein <span>✦</span></span><span class="mq-item">IKEA <span>✦</span></span><span class="mq-item">Rolling Stone <span>✦</span></span><span class="mq-item">Verizon <span>✦</span></span><span class="mq-item">Travis Scott <span>✦</span></span><span class="mq-item">James Blake <span>✦</span></span><span class="mq-item">Dua Lipa <span>✦</span></span>
+  </div>
+</div>
+
+<!-- REEL -->
+<section class="reel-section">
+  <div class="s-hdr reveal">
+    <span class="s-num">00</span>
+    <h2 class="s-title"><em class="c-yellow">Showreel</em></h2>
+  </div>
+  <div class="reel-wrap reveal">
+    <div class="sprocket sp-l"><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div></div>
+    <div class="sprocket sp-r"><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div><div class="sprocket-h"></div></div>
+    <div class="reel-body">
+      <div class="fc tl"></div><div class="fc tr"></div><div class="fc bl"></div><div class="fc br"></div>
+      <div class="reel-inner">
+        <div class="play-ring"><div class="play-tri"></div></div>
+        <span class="reel-lbl">Watch Reel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK LIST -->
+<section class="work-section">
+  <div class="s-hdr reveal">
+    <span class="s-num">01</span>
+    <h2 class="s-title">The <em class="c-ruby">Work</em></h2>
+  </div>
+  <ul class="cat-list">
+    <li class="reveal"><a href="films.html" class="cat-item" data-oz="emerald">
+      <span class="cat-num">01</span><span class="cat-name">Fictional Films</span>
+      <div class="cat-aside"><span class="cat-count">15 Films</span><span class="cat-tag">Macau · Adirondacks · New York</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d1"><a href="documentary.html" class="cat-item" data-oz="ruby">
+      <span class="cat-num">02</span><span class="cat-name">Documentaries</span>
+      <div class="cat-aside"><span class="cat-count">12 Films</span><span class="cat-tag">Amazon · Indigenous Voices</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d2"><a href="music.html" class="cat-item" data-oz="violet">
+      <span class="cat-num">03</span><span class="cat-name">Music Videos</span>
+      <div class="cat-aside"><span class="cat-count">14 Videos</span><span class="cat-tag">Travis Scott · James Blake · Tyga</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d3"><a href="commercial.html" class="cat-item" data-oz="yellow">
+      <span class="cat-num">04</span><span class="cat-name">Commercials</span>
+      <div class="cat-aside"><span class="cat-count">23 Spots</span><span class="cat-tag">Nike · IKEA · Calvin Klein</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d4"><a href="editorial.html" class="cat-item" data-oz="sky">
+      <span class="cat-num">05</span><span class="cat-name">Editorial</span>
+      <div class="cat-aside"><span class="cat-count">7 Pieces</span><span class="cat-tag">Rolling Stone · Dua Lipa · Billie Eilish</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal"><a href="fashion.html" class="cat-item" data-oz="ruby">
+      <span class="cat-num">06</span><span class="cat-name">Fashion</span>
+      <div class="cat-aside"><span class="cat-count">5 Projects</span><span class="cat-tag">Bodies in Motion · Garments</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d1"><a href="episodic.html" class="cat-item" data-oz="emerald">
+      <span class="cat-num">07</span><span class="cat-name">Episodic</span>
+      <div class="cat-aside"><span class="cat-count">7 Episodes</span><span class="cat-tag">Bill Gates · Jimmy Butler · Sofía Vergara</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d2"><a href="branded.html" class="cat-item" data-oz="yellow">
+      <span class="cat-num">08</span><span class="cat-name">Branded Content</span>
+      <div class="cat-aside"><span class="cat-count">10 Projects</span><span class="cat-tag">Bangkok · Romania · Brazil</span></div><span class="cat-arr">→</span>
+    </a></li>
+    <li class="reveal d3"><a href="photography.html" class="cat-item" data-oz="sky">
+      <span class="cat-num">09</span><span class="cat-name">Photography</span>
+      <div class="cat-aside"><span class="cat-count">38 Images</span><span class="cat-tag">Stills from the Field</span></div><span class="cat-arr">→</span>
+    </a></li>
+  </ul>
+</section>
+
+<div class="rainbow-bar"></div>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip" id="about">
+  <div class="about-art reveal">
+    <div class="a-orn"><div class="a-orn-line"></div><div class="a-orn-txt">Director's Statement</div></div>
+    <div class="a-qmark">"</div>
+    <blockquote class="a-quote">The future of cinema<br>is <em>documentary</em>.</blockquote>
+    <p class="a-attr">— Jordan Quellman, Director + DP</p>
+  </div>
+  <div class="about-text reveal d3">
+    <p class="at-lbl">Director + Director of Photography</p>
+    <p class="at-bio">Jordan has filmed movies across the globe, from the docks of Macau to the snow-bound wintry wonderland of the Adirondacks in upstate New York. A storyteller drawn to truth, beauty, and the quiet moments that live between.</p>
+    <div class="at-rule"></div>
+    <div class="at-credits">
+      <p class="at-c at-ruby">Nike · IKEA · Verizon</p>
+      <p class="at-c at-yellow">Calvin Klein · Lincoln Navigator</p>
+      <p class="at-c at-green">Rolling Stone · Dua Lipa · Billie Eilish</p>
+      <p class="at-c at-sky">Travis Scott · James Blake · Serena Williams</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta">
+  <div class="c-gems reveal">
+    <div class="c-gem-line cgl-l"></div>
+    <div class="c-gem cg-r"></div><div class="c-gem cg-y"></div>
+    <span class="c-sup-txt">Let's Make Something</span>
+    <div class="c-gem cg-g"></div><div class="c-gem cg-b"></div>
+    <div class="c-gem-line cgl-r"></div>
+  </div>
+  <h2 class="c-title reveal">
+    <span class="ct1">Start a</span>
+    <span class="ct2">Conversation</span>
+    <span class="ct3">Together · Always</span>
+  </h2>
+  <div class="c-actions reveal">
+    <a href="contact.html" class="c-btn c-btn-primary"><span>Get in Touch</span></a>
+    <div class="c-sep"></div>
+    <a href="https://instagram.com/flionlion" class="c-btn c-btn-ghost" target="_blank"><span>@flionlion</span></a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <span class="f-logo">Flionlion</span>
+  <span class="f-copy">© 2025 Jordan Quellman. All rights reserved.</span>
+  <div class="f-links">
+    <a href="about.html">About</a>
+    <a href="photography.html">Photos</a>
+    <a href="https://instagram.com/flionlion" target="_blank">Instagram</a>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

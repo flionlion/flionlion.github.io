@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photography — Jordan Quellman</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-header { background:var(--kansas-dark); padding:clamp(110px,16vw,180px) 60px clamp(60px,8vw,100px); position:relative; overflow:hidden; }
+.page-header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 80% 20%,rgba(74,156,200,0.14) 0%,transparent 60%),radial-gradient(ellipse 60% 70% at 10% 75%,rgba(232,192,32,0.10) 0%,transparent 55%); pointer-events:none; }
+.ph-eyebrow { font-weight:100; font-size:0.5rem; letter-spacing:0.55em; text-transform:uppercase; color:var(--yellow-d); margin-bottom:16px; display:flex; align-items:center; gap:16px; position:relative; z-index:1; }
+.ph-eyebrow::before { content:''; width:28px; height:1px; background:linear-gradient(to right,var(--ruby),var(--yellow)); }
+.ph-title { font-weight:700; text-transform:uppercase; font-size:clamp(2.8rem,7vw,7rem); line-height:0.88; letter-spacing:-0.01em; position:relative; z-index:1; color:var(--ivory); }
+.ph-title em { font-family:'Cormorant Garant',serif; font-style:italic; font-weight:300; text-transform:none; color:var(--sky); }
+.ph-desc { margin-top:24px; font-family:'Cormorant Garant',serif; font-style:italic; font-size:0.9rem; color:var(--dusk); line-height:1.9; max-width:520px; position:relative; z-index:1; }
+
+/* Masonry-style photo grid */
+.photo-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:3px;
+}
+.photo-card {
+  position:relative; overflow:hidden; cursor:pointer;
+  background:var(--kansas-mid);
+}
+.photo-card.p1 { aspect-ratio:3/4; }
+.photo-card.p2 { aspect-ratio:1/1; }
+.photo-card.p3 { aspect-ratio:4/3; grid-column:span 2; }
+.photo-card.p4 { aspect-ratio:3/4; }
+.photo-card.p5 { aspect-ratio:1/1; }
+
+.photo-card-bg { position:absolute; inset:0; transition:transform 1.2s cubic-bezier(.25,.46,.45,.94); }
+.photo-card:hover .photo-card-bg { transform:scale(1.08); }
+.photo-card-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(14,9,4,.8) 0%,transparent 50%); opacity:0; transition:opacity .5s; z-index:1; }
+.photo-card:hover .photo-card-ov { opacity:1; }
+.photo-card-info { position:absolute; bottom:0; left:0; right:0; padding:16px; z-index:2; opacity:0; transform:translateY(4px); transition:opacity .5s,transform .5s; }
+.photo-card:hover .photo-card-info { opacity:1; transform:translateY(0); }
+.pi-loc { font-weight:100; font-size:0.38rem; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:4px; }
+.pi-title { font-family:'Cormorant Garant',serif; font-style:italic; font-size:0.78rem; color:var(--cream); }
+
+/* Color themes for photo cards */
+.pc-ruby    .photo-card-bg { background:radial-gradient(ellipse 80% 80% at 50% 40%,rgba(204,26,26,.25) 0%,transparent 65%),linear-gradient(180deg,#200404 0%,#100204 100%); }
+.pc-yellow  .photo-card-bg { background:radial-gradient(ellipse 80% 80% at 40% 60%,rgba(232,192,32,.22) 0%,transparent 65%),linear-gradient(180deg,#1e1800 0%,#0e0c00 100%); }
+.pc-emerald .photo-card-bg { background:radial-gradient(ellipse 80% 80% at 60% 40%,rgba(26,140,60,.22) 0%,transparent 65%),linear-gradient(180deg,#021806 0%,#010c04 100%); }
+.pc-sky     .photo-card-bg { background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(74,156,200,.20) 0%,transparent 65%),linear-gradient(180deg,#02101a 0%,#010810 100%); }
+.pc-violet  .photo-card-bg { background:radial-gradient(ellipse 80% 80% at 40% 40%,rgba(120,64,176,.20) 0%,transparent 65%),linear-gradient(180deg,#0e0218 0%,#06010c 100%); }
+.pc-poppy   .photo-card-bg { background:radial-gradient(ellipse 80% 80% at 60% 60%,rgba(232,88,32,.22) 0%,transparent 65%),linear-gradient(180deg,#1c0802 0%,#0c0401 100%); }
+
+.pc-ruby    .pi-loc { color:rgba(204,26,26,.7); }
+.pc-yellow  .pi-loc { color:rgba(196,158,16,.7); }
+.pc-emerald .pi-loc { color:rgba(26,140,60,.7); }
+.pc-sky     .pi-loc { color:rgba(74,156,200,.7); }
+.pc-violet  .pi-loc { color:rgba(120,64,176,.7); }
+.pc-poppy   .pi-loc { color:rgba(232,88,32,.7); }
+
+@media(max-width:900px){ .photo-grid{grid-template-columns:1fr 1fr} .photo-card.p3{grid-column:span 2} }
+@media(max-width:600px){ .photo-grid{grid-template-columns:1fr} .photo-card.p3{grid-column:span 1} }
+</style>
+</head>
+<body>
+<canvas id="grain"></canvas>
+<div class="lb-t"></div><div class="lb-b"></div>
+<div class="vignette"></div><div class="halation"></div>
+<div class="hud-l"><div class="hud-tc">TC <span id="tc">00:00:00:00</span></div><div class="hud-sc">SC. V — EXT. THE WORLD · PHOTOGRAPHY</div></div>
+<div class="hud-r"><div id="fn">FRAME 000000</div><div style="margin-top:4px;color:rgba(26,140,60,0.4)">TECHNICOLOR · OZ</div></div>
+<div class="c-dot" id="cd"></div><div class="c-ring" id="cr"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jordan Quellman</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="films.html">Films</a></li>
+    <li><a href="documentary.html">Docs</a></li>
+    <li><a href="commercial.html">Commercial</a></li>
+    <li><a href="photography.html" class="active">Photos</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="ph-eyebrow">Stills from the Field</p>
+  <h1 class="ph-title">Photo-<br><em>graphy</em></h1>
+  <p class="ph-desc">Still photographs made between — and often during — film productions. Images from Macau, Brazil, Romania, Bangkok, New York, and beyond. The world seen through a DP's eye.</p>
+</div>
+<div class="rainbow-bar"></div>
+
+<!-- Series 1: Documentary Stills -->
+<section class="section-pad" style="background:var(--kansas-black)">
+  <div class="s-hdr reveal">
+    <span class="s-num">01</span>
+    <h2 class="s-title"><em class="c-ruby">Documentary</em> Stills</h2>
+  </div>
+  <div class="photo-grid reveal">
+    <div class="photo-card p1 pc-ruby">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Rondônia, Brazil</p><p class="pi-title">Chief Almir, Paiter-Suruí</p></div>
+    </div>
+    <div class="photo-card p2 pc-emerald">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Amazon Rainforest</p><p class="pi-title">The Forest at Dawn</p></div>
+    </div>
+    <div class="photo-card p2 pc-yellow">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Macau, China</p><p class="pi-title">Ferry Terminal, Midnight</p></div>
+    </div>
+    <div class="photo-card p1 pc-sky">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Uganda</p><p class="pi-title">Agandi — Portrait</p></div>
+    </div>
+    <div class="photo-card p3 pc-violet">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Adirondacks, New York</p><p class="pi-title">Winter Light Through Pines</p></div>
+    </div>
+    <div class="photo-card p2 pc-poppy">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Romania</p><p class="pi-title">Bucharest, Blue Hour</p></div>
+    </div>
+    <div class="photo-card p2 pc-ruby">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Brooklyn, New York</p><p class="pi-title">Sunday Market</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Series 2: On Set -->
+<section class="section-pad" style="background:var(--kansas-dark)">
+  <div class="s-hdr reveal">
+    <span class="s-num">02</span>
+    <h2 class="s-title"><em class="c-yellow">On</em> Set</h2>
+  </div>
+  <div class="photo-grid reveal">
+    <div class="photo-card p3 pc-yellow">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Bangkok, Thailand</p><p class="pi-title">Nike — Between Takes</p></div>
+    </div>
+    <div class="photo-card p1 pc-sky">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Los Angeles</p><p class="pi-title">Crew Setup, Magic Hour</p></div>
+    </div>
+    <div class="photo-card p1 pc-emerald">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">New York City</p><p class="pi-title">Typical — Principal Photography</p></div>
+    </div>
+    <div class="photo-card p2 pc-violet">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Macau, China</p><p class="pi-title">Sampan — Location Scout</p></div>
+    </div>
+    <div class="photo-card p2 pc-ruby">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Adirondacks</p><p class="pi-title">Snow Light, 5AM</p></div>
+    </div>
+    <div class="photo-card p3 pc-poppy">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">São Paulo, Brazil</p><p class="pi-title">Samauma — The Ceiba Tree</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Series 3: Portraits -->
+<section class="section-pad" style="background:var(--kansas-black)">
+  <div class="s-hdr reveal">
+    <span class="s-num">03</span>
+    <h2 class="s-title"><em class="c-sky">Portrait</em> Work</h2>
+  </div>
+  <div class="photo-grid cols-4 reveal" style="grid-template-columns:repeat(4,1fr)">
+    <div class="photo-card p1 pc-sky">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Editorial</p><p class="pi-title">Serena Williams</p></div>
+    </div>
+    <div class="photo-card p1 pc-violet">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Editorial</p><p class="pi-title">Dua Lipa — Rolling Stone</p></div>
+    </div>
+    <div class="photo-card p1 pc-ruby">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">On Set</p><p class="pi-title">Travis Scott</p></div>
+    </div>
+    <div class="photo-card p1 pc-emerald">
+      <div class="photo-card-bg"></div><div class="photo-card-ov"></div>
+      <div class="photo-card-info"><p class="pi-loc">Editorial</p><p class="pi-title">James Blake</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="rainbow-bar"></div>
+<footer class="site-footer">
+  <span class="f-logo">Flionlion</span>
+  <span class="f-copy">© 2025 Jordan Quellman</span>
+  <div class="f-links"><a href="about.html">About</a><a href="photography.html">Photos</a><a href="https://instagram.com/flionlion" target="_blank">Instagram</a></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

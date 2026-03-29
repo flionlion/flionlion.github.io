@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Jordan Quellman</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Contact hero */
+.contact-hero {
+  padding:clamp(120px,18vw,200px) 60px clamp(60px,8vw,100px);
+  position:relative; overflow:hidden;
+  background:var(--kansas-black);
+  text-align:center;
+}
+.contact-hero::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% -10%, rgba(232,192,32,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 60%, rgba(26,140,60,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 60%, rgba(204,26,26,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 95%, rgba(120,64,176,0.07) 0%, transparent 55%);
+  pointer-events:none;
+}
+.ch-gems { display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:36px;position:relative;z-index:1; }
+.ch-gem { width:8px;height:8px;transform:rotate(45deg);box-shadow:0 0 10px currentColor; }
+.cg-r{background:var(--ruby);color:var(--ruby)} .cg-y{background:var(--yellow);color:var(--yellow)} .cg-g{background:var(--emerald-l);color:var(--emerald-l)} .cg-b{background:var(--sky);color:var(--sky)} .cg-v{background:var(--violet-l);color:var(--violet-l)}
+.ch-gem-line{flex:1;max-width:48px;height:1px}
+.chl-l{background:linear-gradient(to right,transparent,var(--yellow))} .chl-r{background:linear-gradient(to left,transparent,var(--emerald))}
+.ch-sup { font-weight:100;font-size:.48rem;letter-spacing:.55em;text-transform:uppercase;color:var(--yellow-d); }
+.ch-title { font-weight:700;text-transform:uppercase;font-size:clamp(3.5rem,12vw,12rem);line-height:.82;letter-spacing:-.02em;margin-bottom:48px;position:relative;z-index:1; }
+.cht1{display:block;color:var(--parchment)}
+.cht2{display:block;font-family:'Cormorant Garant',serif;font-style:italic;font-weight:300;text-transform:none;font-size:.7em;
+  background:linear-gradient(105deg,var(--ruby) 0%,var(--poppy) 20%,var(--yellow) 45%,var(--emerald-l) 70%,var(--sky) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 100%;
+  animation:ozShimmer 6s ease-in-out infinite alternate;}
+@keyframes ozShimmer { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+.cht3{display:block;font-weight:100;font-size:.32em;letter-spacing:.3em;color:transparent;-webkit-text-stroke:1px rgba(74,156,200,.2)}
+
+/* Contact grid */
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:3px;
+}
+.contact-info-panel {
+  background:var(--kansas-dark);
+  padding:clamp(40px,6vw,80px);
+  display:flex; flex-direction:column; gap:48px;
+}
+.ci-block {}
+.ci-label { font-weight:100;font-size:.44rem;letter-spacing:.4em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px; }
+.ci-label::before { content:''; width:16px; height:1px; }
+.ci-label.cl-ruby::before { background:var(--ruby); }
+.ci-label.cl-yellow::before { background:var(--yellow); }
+.ci-label.cl-emerald::before { background:var(--emerald-l); }
+.ci-label.cl-sky::before { background:var(--sky); }
+.ci-label.cl-ruby { color:rgba(204,26,26,.6); }
+.ci-label.cl-yellow { color:rgba(196,158,16,.6); }
+.ci-label.cl-emerald { color:rgba(26,140,60,.6); }
+.ci-label.cl-sky { color:rgba(74,156,200,.6); }
+.ci-value { font-family:'Cormorant Garant',serif;font-style:italic;font-size:1.1rem;color:var(--cream);line-height:1.5; }
+.ci-value a { color:inherit;text-decoration:none;transition:color .3s; }
+.ci-value a:hover { color:var(--yellow); }
+.ci-note { font-weight:100;font-size:.46rem;letter-spacing:.08em;color:var(--shadow);margin-top:6px;line-height:1.8; }
+
+/* Contact form */
+.contact-form-panel {
+  background:var(--kansas-mid);
+  padding:clamp(40px,6vw,80px);
+}
+.cf-title { font-weight:700;text-transform:uppercase;font-size:clamp(1.2rem,2.5vw,2rem);color:var(--cream);letter-spacing:-.01em;margin-bottom:32px; }
+.cf-title em { font-family:'Cormorant Garant',serif;font-style:italic;font-weight:300;text-transform:none;color:var(--yellow); }
+.form-field { margin-bottom:24px; }
+.form-field label { display:block;font-weight:100;font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;color:var(--shadow);margin-bottom:8px; }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width:100%; background:rgba(0,0,0,0.3);
+  border:1px solid rgba(232,192,32,0.15);
+  border-radius:0; outline:none;
+  font-family:'Josefin Sans',sans-serif; font-weight:300; font-size:.62rem;
+  letter-spacing:.05em; color:var(--cream);
+  padding:14px 16px;
+  transition:border-color .4s,box-shadow .4s;
+  -webkit-appearance:none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color:var(--shadow); }
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color:rgba(232,192,32,0.45);
+  box-shadow:0 0 20px rgba(232,192,32,0.06);
+}
+.form-field select option { background:var(--kansas-dark); color:var(--cream); }
+.form-field textarea { resize:vertical; min-height:140px; }
+
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+
+.submit-btn {
+  width:100%; padding:16px;
+  font-family:'Josefin Sans',sans-serif; font-weight:700;
+  font-size:.52rem; letter-spacing:.4em; text-transform:uppercase;
+  color:var(--kansas-black); border:none; cursor:pointer;
+  position:relative; overflow:hidden;
+  background:linear-gradient(90deg,var(--ruby),var(--poppy),var(--yellow));
+  transition:filter .4s;
+}
+.submit-btn:hover { filter:brightness(1.1); }
+.submit-btn::after { content:'→'; margin-left:12px; }
+
+/* Rep / Production info strip */
+.rep-strip {
+  background:var(--kansas-dark);
+  padding:36px 60px;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:3px;
+  border-top:1px solid rgba(232,192,32,0.08);
+}
+.rep-block { padding:28px; text-align:center; border-right:1px solid rgba(232,192,32,0.06); }
+.rep-block:last-child { border-right:none; }
+.rep-label { font-weight:100;font-size:.4rem;letter-spacing:.35em;text-transform:uppercase;color:var(--shadow);margin-bottom:10px; }
+.rep-name { font-family:'Cormorant Garant',serif;font-style:italic;font-size:1rem;color:var(--cream);margin-bottom:4px; }
+.rep-contact { font-weight:100;font-size:.42rem;letter-spacing:.08em;color:var(--dusk); }
+
+@media(max-width:900px){
+  .contact-hero{padding-left:28px;padding-right:28px}
+  .contact-grid{grid-template-columns:1fr}
+  .rep-strip{grid-template-columns:1fr;padding-left:28px;padding-right:28px}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<canvas id="grain"></canvas>
+<div class="lb-t"></div><div class="lb-b"></div>
+<div class="vignette"></div><div class="halation"></div>
+<div class="hud-l"><div class="hud-tc">TC <span id="tc">00:00:00:00</span></div><div class="hud-sc">SC. VII — INT. THE MEETING · CONTACT</div></div>
+<div class="hud-r"><div id="fn">FRAME 000000</div><div style="margin-top:4px;color:rgba(26,140,60,0.4)">TECHNICOLOR · OZ</div></div>
+<div class="c-dot" id="cd"></div><div class="c-ring" id="cr"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jordan Quellman</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="films.html">Films</a></li>
+    <li><a href="documentary.html">Docs</a></li>
+    <li><a href="commercial.html">Commercial</a></li>
+    <li><a href="photography.html">Photos</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- CONTACT HERO -->
+<div class="contact-hero">
+  <div class="ch-gems reveal">
+    <div class="ch-gem-line chl-l"></div>
+    <div class="ch-gem cg-r"></div><div class="ch-gem cg-y"></div>
+    <span class="ch-sup">Let's Create Together</span>
+    <div class="ch-gem cg-g"></div><div class="ch-gem cg-b"></div>
+    <div class="ch-gem-line chl-r"></div>
+  </div>
+  <h1 class="ch-title reveal">
+    <span class="cht1">Get in</span>
+    <span class="cht2">Touch</span>
+    <span class="cht3">Always Open · Always Listening</span>
+  </h1>
+</div>
+<div class="rainbow-bar"></div>
+
+<!-- REP STRIP -->
+<div class="rep-strip">
+  <div class="rep-block reveal">
+    <p class="rep-label">Commercial Representation</p>
+    <p class="rep-name">Available on Request</p>
+    <p class="rep-contact">Commercials, Branded Content, Music Videos</p>
+  </div>
+  <div class="rep-block reveal d1">
+    <p class="rep-label">Narrative &amp; Documentary</p>
+    <p class="rep-name">Direct Inquiries Welcome</p>
+    <p class="rep-contact">Features, Short Films, Documentaries</p>
+  </div>
+  <div class="rep-block reveal d2">
+    <p class="rep-label">Press &amp; Festivals</p>
+    <p class="rep-name">Flionlion Productions</p>
+    <p class="rep-contact">flionlion.com</p>
+  </div>
+</div>
+
+<!-- CONTACT GRID -->
+<div class="contact-grid">
+  <!-- INFO PANEL -->
+  <div class="contact-info-panel reveal">
+    <div class="ci-block">
+      <p class="ci-label cl-ruby">General Inquiries</p>
+      <p class="ci-value"><a href="mailto:hello@flionlion.com">hello@flionlion.com</a></p>
+      <p class="ci-note">For general questions, press, and festival inquiries.</p>
+    </div>
+    <div class="ci-block">
+      <p class="ci-label cl-yellow">Commercial &amp; Branded</p>
+      <p class="ci-value"><a href="mailto:commercial@flionlion.com">commercial@flionlion.com</a></p>
+      <p class="ci-note">Commercials, music videos, branded content, editorial. Response within 48 hours.</p>
+    </div>
+    <div class="ci-block">
+      <p class="ci-label cl-emerald">Instagram</p>
+      <p class="ci-value"><a href="https://instagram.com/flionlion" target="_blank">@flionlion</a></p>
+      <p class="ci-note">Behind the scenes, photography, and updates from the field.</p>
+    </div>
+    <div class="ci-block">
+      <p class="ci-label cl-sky">Based in</p>
+      <p class="ci-value">New York City</p>
+      <p class="ci-note">Available worldwide. Jordan has filmed on six continents.</p>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="contact-form-panel reveal d2">
+    <h2 class="cf-title">Send a <em>Message</em></h2>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="company">Company / Production</label>
+        <input type="text" id="company" name="company" placeholder="Optional">
+      </div>
+      <div class="form-field">
+        <label for="type">Project Type</label>
+        <select id="type" name="project_type">
+          <option value="">Select a category</option>
+          <option value="narrative">Narrative / Fiction Film</option>
+          <option value="documentary">Documentary</option>
+          <option value="commercial">Commercial / Advertising</option>
+          <option value="music">Music Video</option>
+          <option value="branded">Branded Content</option>
+          <option value="editorial">Editorial / Photography</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">Tell me about your project</label>
+        <textarea id="message" name="message" placeholder="Brief description, timeline, budget range if known..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+    <p style="margin-top:16px;font-weight:100;font-size:.4rem;letter-spacing:.1em;color:var(--shadow);line-height:1.8">
+      To activate this form: sign up free at <span style="color:var(--yellow-d)">formspree.io</span>, create a form, and replace YOUR_FORM_ID in the form action URL with your unique form ID.
+    </p>
+  </div>
+</div>
+
+<div class="rainbow-bar"></div>
+<footer class="site-footer">
+  <span class="f-logo">Flionlion</span>
+  <span class="f-copy">© 2025 Jordan Quellman. All rights reserved.</span>
+  <div class="f-links"><a href="about.html">About</a><a href="photography.html">Photos</a><a href="https://instagram.com/flionlion" target="_blank">Instagram</a></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

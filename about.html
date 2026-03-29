@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Jordan Quellman</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.about-hero {
+  padding:clamp(120px,18vw,200px) 60px clamp(60px,8vw,100px);
+  position:relative; overflow:hidden;
+  background:var(--kansas-dark);
+  display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end;
+}
+.about-hero::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 80% 70% at 10% 60%,rgba(204,26,26,0.18) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 60% at 90% 20%,rgba(232,192,32,0.12) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 50% 90%,rgba(120,64,176,0.10) 0%,transparent 55%);
+  pointer-events:none;
+}
+.about-hero-left { position:relative; z-index:1; }
+.ah-eyebrow { font-weight:100; font-size:0.5rem; letter-spacing:0.55em; text-transform:uppercase; color:var(--yellow-d); margin-bottom:20px; display:flex; align-items:center; gap:16px; }
+.ah-eyebrow::before { content:''; width:28px; height:1px; background:linear-gradient(to right,var(--ruby),var(--yellow)); }
+.ah-name { font-weight:700; text-transform:uppercase; font-size:clamp(3rem,8vw,8rem); line-height:0.82; letter-spacing:-0.02em; color:var(--ivory); }
+.ah-name span {
+  display:block; font-family:'Cormorant Garant',serif; font-style:italic;
+  font-weight:300; text-transform:none; font-size:0.65em;
+  background:linear-gradient(105deg,var(--ruby) 0%,var(--poppy) 25%,var(--yellow) 55%,var(--emerald-l) 80%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.ah-role { margin-top:20px; font-weight:100; font-size:0.5rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--shadow); }
+
+.about-hero-right { position:relative; z-index:1; }
+.ah-bio { font-family:'Cormorant Garant',serif; font-style:italic; font-size:1rem; color:var(--dusk); line-height:2; margin-bottom:28px; }
+.ah-quote { font-family:'Cormorant Garant',serif; font-style:italic; font-size:1.4rem; color:var(--cream); line-height:1.5; padding-left:20px; border-left:2px solid var(--ruby); }
+.ah-quote-attr { margin-top:14px; padding-left:20px; font-weight:100; font-size:0.4rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(232,192,32,0.45); }
+
+/* Stats row */
+.stats-row {
+  background:var(--kansas-mid);
+  padding:36px 60px;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:3px;
+  border-top:1px solid rgba(232,192,32,0.08);
+  border-bottom:1px solid rgba(232,192,32,0.08);
+}
+.stat {
+  padding:24px; text-align:center;
+  border-right:1px solid rgba(232,192,32,0.06);
+}
+.stat:last-child { border-right:none; }
+.stat-num { font-weight:700; font-size:clamp(1.8rem,4vw,3.5rem); line-height:1; margin-bottom:8px; }
+.stat-num.sn-ruby    { color:var(--ruby); }
+.stat-num.sn-yellow  { color:var(--yellow); }
+.stat-num.sn-emerald { color:var(--emerald-l); }
+.stat-num.sn-sky     { color:var(--sky); }
+.stat-num.sn-violet  { color:var(--violet-l); }
+.stat-label { font-weight:100; font-size:0.4rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--shadow); }
+
+/* Awards / recognition */
+.awards-list { list-style:none; display:flex; flex-direction:column; }
+.award-item {
+  display:flex; align-items:center; gap:20px;
+  padding:20px 0; border-bottom:1px solid rgba(232,192,32,0.07);
+  position:relative; overflow:hidden;
+  transition:padding-left .4s;
+}
+.award-item:hover { padding-left:12px; }
+.award-item::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(232,192,32,0.05) 0%,transparent 60%); opacity:0; transition:opacity .4s; }
+.award-item:hover::before { opacity:1; }
+.award-year { font-weight:100; font-size:0.44rem; letter-spacing:0.2em; color:var(--shadow); width:60px; flex-shrink:0; }
+.award-gem { width:6px; height:6px; transform:rotate(45deg); flex-shrink:0; }
+.award-title { font-family:'Cormorant Garant',serif; font-style:italic; font-size:1rem; color:var(--cream); flex:1; }
+.award-festival { font-weight:100; font-size:0.42rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--dusk); text-align:right; }
+
+/* Press quotes */
+.press-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+.press-card {
+  padding:clamp(28px,4vw,48px);
+  position:relative; overflow:hidden;
+}
+.press-card:nth-child(1) { background:radial-gradient(ellipse 80% 80% at 20% 80%,rgba(204,26,26,0.10) 0%,transparent 60%),var(--kansas-dark); }
+.press-card:nth-child(2) { background:radial-gradient(ellipse 80% 80% at 80% 20%,rgba(232,192,32,0.08) 0%,transparent 60%),var(--kansas-mid); }
+.press-card:nth-child(3) { background:radial-gradient(ellipse 80% 80% at 20% 20%,rgba(26,140,60,0.09) 0%,transparent 60%),var(--kansas-mid); }
+.press-card:nth-child(4) { background:radial-gradient(ellipse 80% 80% at 80% 80%,rgba(74,156,200,0.09) 0%,transparent 60%),var(--kansas-dark); }
+.press-mark { font-weight:700; font-size:4rem; line-height:0.5; margin-bottom:12px; opacity:0.15; }
+.press-card:nth-child(1) .press-mark { color:var(--ruby); }
+.press-card:nth-child(2) .press-mark { color:var(--yellow); }
+.press-card:nth-child(3) .press-mark { color:var(--emerald-l); }
+.press-card:nth-child(4) .press-mark { color:var(--sky); }
+.press-quote { font-family:'Cormorant Garant',serif; font-style:italic; font-size:clamp(0.85rem,1.6vw,1.1rem); color:var(--cream); line-height:1.7; margin-bottom:16px; }
+.press-source { font-weight:100; font-size:0.42rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--shadow); }
+
+@media(max-width:900px) {
+  .about-hero { grid-template-columns:1fr; gap:32px; padding-left:28px; padding-right:28px; }
+  .stats-row { grid-template-columns:1fr 1fr; padding-left:28px; padding-right:28px; }
+  .press-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<canvas id="grain"></canvas>
+<div class="lb-t"></div><div class="lb-b"></div>
+<div class="vignette"></div><div class="halation"></div>
+<div class="hud-l"><div class="hud-tc">TC <span id="tc">00:00:00:00</span></div><div class="hud-sc">SC. VI — INT. DIRECTOR'S STUDY · GOLDEN HOUR</div></div>
+<div class="hud-r"><div id="fn">FRAME 000000</div><div style="margin-top:4px;color:rgba(26,140,60,0.4)">TECHNICOLOR · OZ</div></div>
+<div class="c-dot" id="cd"></div><div class="c-ring" id="cr"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jordan Quellman</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="films.html">Films</a></li>
+    <li><a href="documentary.html">Docs</a></li>
+    <li><a href="commercial.html">Commercial</a></li>
+    <li><a href="photography.html">Photos</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ABOUT HERO -->
+<div class="about-hero">
+  <div class="about-hero-left reveal">
+    <p class="ah-eyebrow">Director · Director of Photography</p>
+    <h1 class="ah-name">
+      Jordan<br>
+      <span>Quellman</span>
+    </h1>
+    <p class="ah-role">Flionlion · Est. 2014</p>
+  </div>
+  <div class="about-hero-right reveal d2">
+    <p class="ah-bio">Jordan Quellman is a Director and Director of Photography working across narrative fiction, documentary, commercial, and music video. He has filmed in over 20 countries — from the Amazon rainforest to the docks of Macau, the snow-covered Adirondacks to the streets of Bangkok — always in pursuit of the quiet, true moment.</p>
+    <blockquote class="ah-quote">The future of cinema is documentary.</blockquote>
+    <p class="ah-quote-attr">— Jordan Quellman</p>
+  </div>
+</div>
+<div class="rainbow-bar"></div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat reveal"><div class="stat-num sn-ruby">15+</div><div class="stat-label">Narrative Films</div></div>
+  <div class="stat reveal d1"><div class="stat-num sn-emerald">12+</div><div class="stat-label">Documentaries</div></div>
+  <div class="stat reveal d2"><div class="stat-num sn-yellow">23+</div><div class="stat-label">Commercial Spots</div></div>
+  <div class="stat reveal d3"><div class="stat-num sn-sky">20+</div><div class="stat-label">Countries Filmed</div></div>
+  <div class="stat reveal d4"><div class="stat-num sn-violet">10+</div><div class="stat-label">Years Active</div></div>
+</div>
+
+<!-- BIO DETAIL -->
+<section class="section-pad" style="background:var(--kansas-black)">
+  <div class="s-hdr reveal">
+    <span class="s-num">01</span>
+    <h2 class="s-title"><em class="c-yellow">Biography</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px" class="reveal">
+    <div>
+      <p style="font-family:'Cormorant Garant',serif;font-style:italic;font-size:.95rem;color:var(--dusk);line-height:2.1;margin-bottom:24px">Jordan grew up between cultures, a childhood split between continents that would later define the kinds of stories he sought out as a filmmaker. He studied at the American Film Institute, where he developed a visceral, character-forward visual language — one rooted in naturalistic light and the dignity of the human face.</p>
+      <p style="font-family:'Cormorant Garant',serif;font-style:italic;font-size:.95rem;color:var(--dusk);line-height:2.1;margin-bottom:24px">His feature debut, <em style="color:var(--cream)">Typical</em>, premiered to widespread critical acclaim, described by the Village Voice as a masterwork of quiet tension. His documentary work — particularly <em style="color:var(--cream)">Ancestors of Tomorrow</em> — has screened at festivals worldwide and brought international attention to indigenous land rights movements.</p>
+      <p style="font-family:'Cormorant Garant',serif;font-style:italic;font-size:.95rem;color:var(--dusk);line-height:2.1">As a DP, Jordan's commercial and branded work is defined by the same cinematic rigor he brings to personal projects. His collaborations with Nike, IKEA, Calvin Klein, and a roster of groundbreaking artists have earned him a reputation as one of the most sought-after visual storytellers working today.</p>
+    </div>
+    <div>
+      <p style="font-weight:100;font-size:.44rem;letter-spacing:.35em;text-transform:uppercase;color:var(--yellow-d);margin-bottom:20px;border-bottom:1px solid rgba(232,192,32,.1);padding-bottom:14px">Selected Clients &amp; Collaborators</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(204,26,26,.6)">Nike</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,192,32,.55)">IKEA</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(120,64,176,.6)">Calvin Klein</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(74,156,200,.6)">Verizon</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(204,26,26,.6)">Rolling Stone</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,192,32,.55)">Travis Scott</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(26,140,60,.6)">James Blake</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(74,156,200,.6)">Dua Lipa</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(120,64,176,.6)">Billie Eilish</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(204,26,26,.6)">Serena Williams</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,192,32,.55)">Neymar Jr</div>
+        <div style="padding:10px 0;border-bottom:1px solid rgba(232,192,32,.06);font-weight:100;font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(26,140,60,.6)">Bill Gates</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="section-pad" style="background:var(--kansas-dark)">
+  <div class="s-hdr reveal">
+    <span class="s-num">02</span>
+    <h2 class="s-title"><em class="c-ruby">Recognition</em></h2>
+  </div>
+  <ul class="awards-list">
+    <li class="award-item reveal"><span class="award-year">2024</span><div class="award-gem" style="background:var(--ruby);box-shadow:0 0 6px var(--ruby)"></div><span class="award-title">Ancestors of Tomorrow — Best Documentary</span><span class="award-festival">AFI Docs</span></li>
+    <li class="award-item reveal d1"><span class="award-year">2023</span><div class="award-gem" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="award-title">Typical — Grand Jury Prize, Narrative</span><span class="award-festival">Tribeca Film Festival</span></li>
+    <li class="award-item reveal d2"><span class="award-year">2023</span><div class="award-gem" style="background:var(--emerald-l);box-shadow:0 0 6px var(--emerald)"></div><span class="award-title">Samauma — Special Jury Award</span><span class="award-festival">IDFA Amsterdam</span></li>
+    <li class="award-item reveal d3"><span class="award-year">2022</span><div class="award-gem" style="background:var(--sky);box-shadow:0 0 6px var(--sky)"></div><span class="award-title">FRANCHISE — Best Music Video</span><span class="award-festival">MTV VMAs</span></li>
+    <li class="award-item reveal"><span class="award-year">2021</span><div class="award-gem" style="background:var(--violet-l);box-shadow:0 0 6px var(--violet)"></div><span class="award-title">Column of Life — Outstanding Cinematography</span><span class="award-festival">International Documentary Festival</span></li>
+    <li class="award-item reveal d1"><span class="award-year">2021</span><div class="award-gem" style="background:var(--ruby);box-shadow:0 0 6px var(--ruby)"></div><span class="award-title">IKEA: The Shining — Gold Lion</span><span class="award-festival">Cannes Lions</span></li>
+    <li class="award-item reveal d2"><span class="award-year">2020</span><div class="award-gem" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="award-title">Sampan — Best Short Film</span><span class="award-festival">Hong Kong International Film Festival</span></li>
+  </ul>
+</section>
+
+<!-- PRESS -->
+<section class="section-pad" style="background:var(--kansas-black)">
+  <div class="s-hdr reveal">
+    <span class="s-num">03</span>
+    <h2 class="s-title"><em class="c-sky">Press</em></h2>
+  </div>
+  <div class="press-grid reveal">
+    <div class="press-card">
+      <div class="press-mark">"</div>
+      <p class="press-quote">A filmmaker who sees the world with rare tenderness and an almost unbearable clarity. Quellman is the real thing.</p>
+      <p class="press-source">The Village Voice</p>
+    </div>
+    <div class="press-card">
+      <div class="press-mark">"</div>
+      <p class="press-quote">Ancestors of Tomorrow joins the canon of great environmental documentaries — not because it argues, but because it listens.</p>
+      <p class="press-source">IndieWire</p>
+    </div>
+    <div class="press-card">
+      <div class="press-mark">"</div>
+      <p class="press-quote">One of the most distinctive visual voices working in advertising today. Every Quellman frame earns its place.</p>
+      <p class="press-source">Shots Magazine</p>
+    </div>
+    <div class="press-card">
+      <div class="press-mark">"</div>
+      <p class="press-quote">Typical is a film that creeps under your skin and stays there. Quietly devastating, beautifully observed.</p>
+      <p class="press-source">Screen International</p>
+    </div>
+  </div>
+</section>
+
+<div class="rainbow-bar"></div>
+<footer class="site-footer">
+  <span class="f-logo">Flionlion</span>
+  <span class="f-copy">© 2025 Jordan Quellman</span>
+  <div class="f-links"><a href="about.html">About</a><a href="photography.html">Photos</a><a href="https://instagram.com/flionlion" target="_blank">Instagram</a></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

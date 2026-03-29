@@ -134,3 +134,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+// ─── Vimeo Thumbnail Loader ───────────────────────────────────────────────
+(function loadVimeoThumbnails() {
+  document.querySelectorAll('.vid-card-bg[data-vimeo]').forEach(bg => {
+    const url = bg.getAttribute('data-vimeo');
+    const idMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (!idMatch) return;
+    const id = idMatch[1];
+    fetch(`https://vimeo.com/api/v2/video/${id}.json`)
+      .then(r => r.json())
+      .then(data => {
+        const thumb = data[0] && (data[0].thumbnail_large || data[0].thumbnail_medium);
+        if (thumb) {
+          bg.style.backgroundImage = `url('${thumb}')`;
+          bg.style.backgroundSize = 'cover';
+          bg.style.backgroundPosition = 'center';
+        }
+      })
+      .catch(() => {});
+  });
+})();
+
+// ─── Vid-card-link styles ─────────────────────────────────────────────────
+const _linkStyle = document.createElement('style');
+_linkStyle.textContent = `
+  a.vid-card-link { display: contents; text-decoration: none; color: inherit; }
+  a.vid-card-link .vid-card { cursor: pointer; }
+  a.vid-card-link:hover .vid-card { transform: translateY(-4px); transition: transform 0.2s ease; }
+`;
+document.head.appendChild(_linkStyle);

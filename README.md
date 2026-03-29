@@ -21,51 +21,22 @@ main.js             ← All shared JavaScript (grain, cursor, HUD, reveal)
 
 ---
 
-## Deploy to GitHub Pages (FREE — ~5 minutes)
+## Deploy to Netlify (FREE — ~5 minutes)
 
-1. Go to **github.com** and create a free account (if you don't have one)
-2. Click **"New repository"** — name it `flionlion` (or anything you like)
-3. Set it to **Public**, then click **"Create repository"**
-4. Upload your files:
-   - Click **"uploading an existing file"** on the repo page
-   - Drag and drop all the files from this folder (not the folder itself — the files inside)
-   - Click **"Commit changes"**
-5. Go to **Settings → Pages** (in the left sidebar)
-6. Under **"Source"**, select **"Deploy from a branch"**
-7. Choose branch: `main`, folder: `/ (root)` → click **Save**
-8. GitHub gives you a live URL: `https://yourusername.github.io/flionlion`
+1. Go to **netlify.com** and create a free account
+2. From the dashboard, find the **"Deploy manually"** section
+3. Drag and drop the entire **flionlion** folder onto the deploy area
+4. Netlify gives you a live URL immediately (e.g. `random-name.netlify.app`)
+5. Go to **Domain settings** → Add custom domain → enter `flionlion.com`
+6. Update your domain registrar's nameservers to point to Netlify (they give you exact instructions)
 
-### Using a Custom Domain (flionlion.com)
-
-1. In **Settings → Pages**, enter `flionlion.com` in the **"Custom domain"** field and save
-2. GitHub will create a `CNAME` file in your repo automatically
-3. Go to your domain registrar and add these DNS records:
-
-   **Option A — Apex domain (flionlion.com):**
-   Add 4 A records pointing to GitHub's IPs:
-   ```
-   185.199.108.153
-   185.199.109.153
-   185.199.110.153
-   185.199.111.153
-   ```
-
-   **Option B — www subdomain (www.flionlion.com):**
-   Add a CNAME record:
-   ```
-   www → yourusername.github.io
-   ```
-
-4. DNS changes take up to 24 hours to propagate
-5. Once live, check **"Enforce HTTPS"** in Settings → Pages for a free SSL certificate
-
-Total cost: $0 for hosting. You only pay for your domain (~$12/year).
+That's it. Total cost: $0 for hosting. You only pay for your domain (~$12/year).
 
 ---
 
 ## Activate the Contact Form
 
-The contact form on contact.html uses Formspree (free tier) — this works on GitHub Pages:
+The contact form on contact.html uses Formspree (free tier):
 
 1. Go to **formspree.io** and sign up free
 2. Create a new form — you get a unique form ID
